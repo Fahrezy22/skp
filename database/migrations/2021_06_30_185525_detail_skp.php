@@ -10,7 +10,6 @@ class DetailSkp extends Migration
     {
         Schema::create('detail_skp', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_skp');
             $table->string('ktj_target_skp');
             $table->integer('ak_target_skp');
             $table->integer('output_target_skp');
