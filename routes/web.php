@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
+
+Route::prefix('/')->group(function () {
+    route::get('/', 'AuthController@index')->name('login');
+    route::post('/', 'AuthController@login');
+    route::get('/register','AuthController@register')->name('register');
+    route::post('/register','AuthController@register_p');
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+    });
+    Route::get('logout', 'AuthController@logout')->name('logout');
 });
