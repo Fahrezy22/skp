@@ -10,7 +10,6 @@ class Skp extends Migration
     {
         Schema::create('skp', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pegawai');
             $table->date('tanggal_skp');
             $table->integer('orientasi_pelayanan');
             $table->integer('integritas');

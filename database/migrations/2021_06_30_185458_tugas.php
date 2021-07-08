@@ -10,7 +10,6 @@ class Tugas extends Migration
     {
         Schema::create('tugas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_skp');
             $table->string('nama');
             $table->string('nilai');
             $table->dateTime('created_at')->useCurrent() ;

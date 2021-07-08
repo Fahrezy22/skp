@@ -10,7 +10,6 @@ class Pesan extends Migration
     {
         Schema::create('pesan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pegawai');
             $table->string('pengirim');
             $table->string('penerima');
             $table->string('judul');
