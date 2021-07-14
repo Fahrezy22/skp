@@ -20,6 +20,9 @@ class Skp extends Migration
             $table->integer('jumlah_perilaku');
             $table->string('nilai_perilaku');
             $table->string('status_skp');
+            $table->foreignId('pegawai_id');
+            $table->foreignId('penilai_id');
+            $table->foreignId('atasan_id');
             $table->dateTime('created_at')->useCurrent() ;
             $table->dateTime('updated_at')->useCurrent() ;
             $table->softDeletes();
