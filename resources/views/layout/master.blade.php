@@ -121,7 +121,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="https://adminlte.io/docs/3.1/" class="nav-link {{ request()->is('skp') ? 'active' : ''}}">
+                <a href="{{route('skp.index')}}" class="nav-link {{ request()->is('skp') ? 'active' : ''}}">
                   <i class="nav-icon fas fa-file"></i>
                   <p>SKP</p>
                 </a>
@@ -246,5 +246,7 @@
       }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');;
     });
 </script>
+
+@yield('js')
 </body>
 </html>

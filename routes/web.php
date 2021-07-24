@@ -45,5 +45,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', 'PenilaiController@add_atasan');
         Route::post('/edit/atasan/{id:id}', 'PenilaiController@update_a');
     });
+
+    Route::resource('skp','SkpController')->except('create','show','update','destroy');
+
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
