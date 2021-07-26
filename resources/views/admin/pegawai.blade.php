@@ -40,7 +40,7 @@
                             <th>Pangkat</th>
                             <th>Golongan</th>
                             <th>Jabatan</th>
-                            <th>No_hp</th>
+                            <th>Nomor Hp</th>
                             <th>Unit Kerja</th>
                             <th>Aksi</th>
                         </tr>
