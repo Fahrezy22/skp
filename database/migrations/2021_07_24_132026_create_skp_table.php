@@ -16,6 +16,8 @@ class CreateSkpTable extends Migration
         Schema::create('skp', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_skp');
+            $table->integer('skp');
+            $table->integer('jumlah_skp');
             $table->integer('orientasi_pelayanan');
             $table->integer('integritas');
             $table->integer('komitmen');
@@ -24,7 +26,8 @@ class CreateSkpTable extends Migration
             $table->integer('kepemimpinan');
             $table->integer('jumlah_perilaku');
             $table->string('nilai_perilaku');
-            $table->string('status_skp');
+            $table->string('jumlah_nilai_perilaku');
+            $table->string('nilai_prestasi');
             $table->foreignId('pegawai_id')->constrained('pegawai');
             $table->foreignId('penilai_id')->constrained('penilai');
             $table->foreignId('atasan_id')->constrained('atasan_penilai');

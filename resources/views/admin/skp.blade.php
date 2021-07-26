@@ -84,7 +84,6 @@
             </div>
             <form id="form-input" action="" method="POST">
                 @csrf
-                <input type="hidden" value="87.19" id="skp">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Nama Pegawai</label>
@@ -129,6 +128,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Skp</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="skp" required name="skp" type="number" class="form-control hitung2">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Orientasi Pelayanan</label>
                         <div class="col-md-9 col-sm-9 ">
                             <input id="orientasi_pelayanan" required name="orientasi_pelayanan" type="number" class="form-control hitung">
@@ -165,15 +170,33 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Jumlah SKP</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="b" required name="jumlah_skp" type="number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Jumlah</label>
                         <div class="col-md-9 col-sm-9 ">
                             <input id="jumlah_perilaku" required name="jumlah_perilaku" type="number" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-md-3 col-sm-3 ">Nilai</label>
+                        <label class="control-label col-md-3 col-sm-3 ">Nilai Rata-Rata</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="nilai_perilaku2" required name="nilai_perilaku2" type="number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Nilai Perilaku</label>
                         <div class="col-md-9 col-sm-9 ">
                             <input id="nilai_perilaku" required name="nilai_perilaku" type="number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Nilai Prestasi</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="nilai_prestasi" required name="nilai_prestasi" type="number" class="form-control" readonly>
                         </div>
                     </div>
                 </div>
@@ -190,24 +213,46 @@
 <script type="text/javascript">
     function nilai_rata_rata(){
     var rata_rata = 0;
+    var leg = 0;
     $(".hitung").each(function(){
             var get_textbox_value = $(this).val();
+            var get_nn = $(this);
     
-            if ($.isNumeric(get_textbox_value)) {
+            if ($.isNumeric(get_textbox_value) && get_nn.val() != "") {
                 rata_rata += parseFloat(get_textbox_value);
+                leg++;  
                 }                
     });
-    var n = rata_rata / $(".hitung").length;
+    // var z = $('.hitung[value!=""]').length;
+    var n = rata_rata / leg ;
     var pembulatan_nilai_rata_rata=n.toFixed(2);
-    $("#nilai_perilaku").val(pembulatan_nilai_rata_rata)
+    var a = $("#skp").val();
+    var b = 60 / 100;
+    var c = parseFloat(a) * b;
+    var d = c.toFixed(2);
+    var e = d + pembulatan_nilai_rata_rata;
+    var f = 40 /100;
+    var g = pembulatan_nilai_rata_rata * f;
+    var h = g.toFixed(2);
+    var i = parseFloat(h) + parseFloat(d);
+    var j = i.toFixed(2);
+    $("#b").val(d)
+    $("#nilai_perilaku").val(h)
+    $("#nilai_prestasi").val(j)
+    $("#nilai_perilaku2").val(pembulatan_nilai_rata_rata)
     $("#jumlah_perilaku").val(rata_rata)
     }
-
     $(document).ready(function(){
-        $(".hitung").keyup(function(){
-            nilai_rata_rata();
+        $(".hitung, #skp").keyup(function(){
+                nilai_rata_rata();
         });
     }); 
         nilai_rata_rata();
+</script>
+@endsection
+
+@section('js2')
+<script>
+    
 </script>
 @endsection

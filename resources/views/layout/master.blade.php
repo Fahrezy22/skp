@@ -248,5 +248,7 @@
 </script>
 
 @yield('js')
+
+@yield('js2')
 </body>
 </html>
