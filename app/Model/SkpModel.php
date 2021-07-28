@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SkpModel extends Model
 {
     protected $table = 'skp';
-    protected $fillable =['id', 'orientasi_pelayanan','integritas','komitmen', 'disiplin', 'kerjasama', 'kepemimpinan', 'jumlah_perilaku', 'nilai_perilaku', 'pegawai_id', 'penilai_id', 'atasan_id', 'created_at', 'updated_at'];
+    protected $fillable =['id', 'orientasi_pelayanan','integritas','komitmen', 'disiplin', 'kerjasama', 'kepemimpinan', 'jumlah_perilaku', 'jumlah_skp', 'skp', 'nilai_rata_rata', 'nilai_prestasi', 'nilai_perilaku', 'pegawai_id', 'penilai_id', 'atasan_id', 'created_at', 'updated_at'];
 
     public function pegawai_rol()
     {
