@@ -38,7 +38,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'PenilaiController@index')->name('penilai');
         Route::post('/', 'PenilaiController@store');
         Route::post('/import', 'PenilaiController@import_penilai');
-        Route::delete('/massdell', 'PenilaiController@massdel_p')->name('penilai.delete');
         Route::post('/import/atasan', 'PenilaiController@import_atasan');
         Route::post('/edit/{id:id}', 'PenilaiController@update');
         Route::get('/delete/{id:id}', 'PenilaiController@delete_penilai');
@@ -47,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('skp','SkpController')->except('create','show','update','destroy');
+    Route::post('skp/Update', 'SkpController@update')->name('skp.update');
+    Route::post('skp/Destroy', 'SkpController@destroy')->name('skp.destroy');
 
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
