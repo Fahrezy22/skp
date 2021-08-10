@@ -15,9 +15,10 @@ class CreateSkpTable extends Migration
     {
         Schema::create('skp', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal_skp');
+            $table->date('tanggal_awal');
+            $table->date('tanggal_batas');
             $table->float('skp');
-            $table->integer('jumlah_skp');
+            $table->float('jumlah_skp');
             $table->integer('orientasi_pelayanan')->nullable();
             $table->integer('integritas')->nullable();
             $table->integer('komitmen')->nullable();
