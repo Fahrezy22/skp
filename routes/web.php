@@ -48,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('skp','SkpController')->except('create','show','update','destroy');
     Route::post('skp/Update', 'SkpController@update')->name('skp.update');
     Route::post('skp/Destroy', 'SkpController@destroy')->name('skp.destroy');
+    Route::get('skp/detail/{id}','SkpController@detail')->name('skp.detail');
+    Route::post('skp/detail/create','SkpController@detail_store')->name('detail.store');
+    Route::post('skp/detail/edit','SkpController@detail_edit')->name('detail.edit');
 
     Route::get('logout', 'AuthController@logout')->name('logout');
 });

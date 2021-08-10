@@ -31,21 +31,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Pegawai</th>
+                                <th>NIP Pegawai</th>
                                 <th>Nama Penilai</th>
                                 <th>Nama Atasan</th>
                                 <th>Tanggal SKP</th>
-                                <th>SKP</th>
-                                <th>Orientasi Pelayanan</th>
-                                <th>Integritas</th>
-                                <th>Komitmen</th>
-                                <th>Disiplin</th>
-                                <th>Kerjasama</th>
-                                <th>Kepemimpinan</th>
-                                <th>Jumlah skp</th>
-                                <th>Jumlah Perilaku</th>
-                                <th>Nilai Rata-Rata</th>
-                                <th>Nilai Perilaku</th>
-                                <th>Nilai Prestasi</th>
+                                <th>Detail</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -57,21 +47,11 @@
                                 <tr>
                                     <td>{{$no++}}</td>
                                     <td>{{$d->pegawai_rol->full_name}}</td>
+                                    <td>{{$d->pegawai_rol->nip}}</td>
                                     <td>{{$d->penilai_rol->nama_penilai}}</td>
                                     <td>{{$d->atasan_rol->nama_atasan}}</td>
-                                    <td>{{$d->tanggal_skp}}</td>
-                                    <td>{{$d->skp}}</td>
-                                    <td>{{$d->orientasi_pelayanan}}</td>
-                                    <td>{{$d->integritas}}</td>
-                                    <td>{{$d->komitmen}}</td>
-                                    <td>{{$d->disiplin}}</td>
-                                    <td>{{$d->kerjasama}}</td>
-                                    <td>{{$d->kepemimpinan}}</td>
-                                    <td>{{$d->jumlah_skp}}</td>
-                                    <td>{{$d->jumlah_perilaku}}</td>
-                                    <td>{{$d->nilai_rata_rata}}</td>
-                                    <td>{{$d->nilai_perilaku}}</td>
-                                    <td>{{$d->nilai_prestasi}}</td>
+                                    <td>{{$d->tanggal_awal}} - {{$d->tanggal_batas}}</td>
+                                    <td><a href="skp/detail/{{$d->id}}" class="btn btn-warning"><i class="fas fa-archive"></i></a></td>
                                     <td>
                                         <button id="btn_edit" data-id="{{$d->id}}" class="btn btn-warning"><i
                                                 class="fas fa-edit"></i></button>
@@ -132,9 +112,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-md-3 col-sm-3 ">Tanggal SKP</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <input id="tanggal_skp" required name="tanggal_skp" type="date" class="form-control">
+                        <label class="control-label col-md-3 col-sm-3 ">Jangka Waktu Penilaian</label>
+                        <div class="col-md-4 col-sm-4 ">
+                            <input id="tanggal_awal" required name="tanggal_awal" type="date" class="form-control">
+                        </div>-
+                        <div class="col-md-4 col-sm-4 ">
+                            <input id="tanggal_batas" required name="tanggal_batas" type="date" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -284,7 +267,8 @@
                 $('#pegawai_id').val(data.pegawai_id);
                 $('#penilai_id').val(data.penilai_id);
                 $('#atasan_id').val(data.atasan_id);
-                $('#tanggal_skp').val(data.tanggal_skp);
+                $('#tanggal_awal').val(data.tanggal_awal);
+                $('#tanggal_batas').val(data.tanggal_batas);
                 $('#skp').val(data.skp);
                 $('#orientasi_pelayanan').val(data.orientasi_pelayanan);
                 $('#integritas').val(data.integritas);
