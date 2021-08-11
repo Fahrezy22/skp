@@ -10,6 +10,7 @@ use App\Model\DetailSkpModel;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class SkpController extends Controller
 {
@@ -21,7 +22,7 @@ class SkpController extends Controller
            'penilai' => Penilai::all(),
            'atasan' => Atasan::all(),
         );
-        return view('admin.skp', ['data' => $data]);
+        return view('skp.skp', ['data' => $data]);
     }
 
     public function store(Request $request)
@@ -127,7 +128,6 @@ class SkpController extends Controller
         $kondisi = $data['ktj'];
         $skp = $request->skp_id;
         $data2 = [];
-        // dd($data);
             foreach ($kondisi as $item => $value) {
                 $data2[] = array(
                     'ktj' => $data['ktj'][$item],
@@ -147,7 +147,6 @@ class SkpController extends Controller
             }
             DB::table('detail_skp')->insert($data2);
             return redirect()->back()->with('status', 'Data tersimpan');
-            // dd($data2); 
     }
 
     public function detail_edit(Request $request)
@@ -155,13 +154,9 @@ class SkpController extends Controller
         $date = Carbon::now();
         $data = $request->all();
         $kondisi = $data['ktj'];
-        $ids = $data['id'];
+        // dd($data);
         $skp = $request->skp_id;
-        // $data2 = [];
-        $anu = [];
-        // dd($ids);
             foreach ($kondisi as $item => $value) {
-                $anu = $data['id'][$item];
                 $data2 = array(
                     'ktj' => $data['ktj'][$item],
                     'ak' => $data['ak'][$item],
@@ -179,9 +174,27 @@ class SkpController extends Controller
                 $dbazar=DetailSkpModel::where('id',$request->id[$item])->first();
                 $dbazar->update($data2);
             }
-            // dd($dbazar);
-            // DB::table('detail_skp')->where('id',$dbazar)->update($data2);
             return redirect()->back()->with('status', 'Data tersimpan');
-            dd($data2); 
+    }
+
+    public function export($id)
+    {
+        $data = SkpModel::with('pegawai_rol', 'penilai_rol', 'atasan_rol')->find($id);
+		$pdf = PDF::loadView('skp.pdf', ['data' => $data]);
+		return $pdf->stream('document.pdf');
+    }
+
+    public function export_detail($id)
+    {
+        $config = [
+            'default_font_size'    => '12',
+        ];
+        $data = [
+            'detail' => DetailSkpModel::where('skp_id',$id)->with('skp_rol')->get(),
+            'skp' => SkpModel::with('pegawai_rol', 'penilai_rol', 'atasan_rol')->find($id),
+            'total' => DetailSkpModel::where('skp_id',$id)->with('skp_rol')->first(),
+    ];
+		$pdf = PDF::loadView('skp.pdf_detail', ['data' => $data],[], $config);
+		return $pdf->stream('document.pdf');
     }
 }

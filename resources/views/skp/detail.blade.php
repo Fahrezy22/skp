@@ -8,6 +8,9 @@ Detail SKP
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">SKP</h3>
+                @foreach ($data['skp'] as $d)
+                    <a href="/export/{{$d->id}}" class="btn btn-secondary float-right"><i class="fas fa-print"></i></a>
+                @endforeach
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -31,7 +34,7 @@ Detail SKP
                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
                                 {{$d->skp}} &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp; &nbsp; &nbsp; 60%</th>
                             </th>
-                            <td>{{ $d->jumlah_skp }}</td>
+                            <td>{{ number_format($d->jumlah_skp, 2) }}</td>
                         </tr>
                         <tr>
                             <td rowspan="9" class="align-middle">b. perilaku kerja</td>
@@ -173,10 +176,20 @@ Detail SKP
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Detail SKP</h3>
-                <button type="button" id="btn_edit" class="btn btn-primary float-right">edit</button>
+                <div class="float-right">
+                    <button type="button" id="btn_edit" class="btn btn-primary ">edit</button>
+                    @foreach ($data['skp'] as $d)
+                        <a href="/detail/export/{{$d->id}}" class="btn btn-secondary"><i class="fas fa-print"></i></a>
+                    @endforeach
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+                @if ($msg = Session::get('status'))
+                    <div class="alert alert-success">
+                        <strong>{{ $msg }}</strong>
+                    </div>
+                @endif
                 <table class="table table-bordered">
                     <thead class="r">
                         <tr>
@@ -218,7 +231,7 @@ Detail SKP
                     <tfoot>
                         <tr>
                             <th class="align-middle text-center">Total AK</th>
-                            <td class="e">{{$data['total']->total_ak}}</td>
+                            <td class="e">{{ number_format($data['total']->total_ak, 2) }}</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -356,13 +369,14 @@ Detail SKP
                 var ak = $(this).val()-0;
                 total += ak;
             });
-            $('.total').val(total);
+            var j = total.toFixed(2);
+            $('.total').val(j);
         };
 
         $(document).on('click', '#btn_edit', function() {
             $('.edit').html('');
             $('.edit').append(
-                '<div class="col-12"><div class="card"><div class="card-header"><h3 class="card-title">Edit Detail</h3></div><div class="card-body"><form action="{{route('detail.edit')}}" method="POST">@csrf<table class="table table-bordered"><thead><tr><th class="align-middle text-center">Kegiatan Tugas Jabatan</th><th class="align-middle text-center" style="width: 90px">AK</th><th class="align-middle text-center">Kuan/Output</th><th class="align-middle text-center">Waktu</th><th class="align-middle text-center">Biaya</th><th class="align-middle text-center">Kual/Mutu</th><th class="align-middle text-center" style="width: 100px">Perhitungan</th><th class="align-middle text-center" style="width: 90px">Nilai Capaian</th><th><button type="button" class="btn btn-primary addRow"><i class="fas fa-plus"></i></button></th></tr></thead><tbody class="nganu">@foreach ($data['detail'] as $d)<tr><td><input type="text" class="form-control form-control-border" name="ktj[]" value="{{$d->ktj}}"></td><td><input type="text" class="form-control form-control-border ak" name="ak[]" value="{{$d->ak}}"></td><td><input type="text" class="form-control form-control-border" name="output[]" value="{{$d->output}}"></td><td><input type="text" class="form-control form-control-border" name="waktu[]" value="{{$d->waktu}}"></td><td><input type="text" class="form-control form-control-border" name="biaya[]" value="{{$d->biaya}}"></td><td><input type="text" class="form-control form-control-border" name="mutu_realisasi[]" value="{{$d->mutu_realisasi}}"></td><td><input type="text" class="form-control form-control-border" name="perhitungan[]" value="{{$d->perhitungan}}"></td><td><input type="text" class="form-control form-control-border" name="nilai_capaian[]" value="{{$d->nilai_capaian}}"></td><td><button type="button" class="btn btn-danger remove"><i class="fas fa-trash"></i></button></td><input type="hidden" name="mutu" value="100"><input type="hidden" name="id[]" value="{{$d->id}}"><input type="hidden" name="skp_id" value="{{$d->skp_id}}"></tr>@endforeach</tbody><tfoot><tr><th class="align-middle text-center">Total AK</th><td><input type="text" class="form-control form-control-border total" name="total_ak" value="{{$data['total']->total_ak}}"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th colspan="8" rowspan="3" class="align-middle text-center">Nilai Capaian SKP</th></tr><tr>@foreach ($data['skp'] as $d)<td>{{$d->nilai_prestasi}}</td>@endforeach</tr><tr><td>@if ($d->nilai_prestasi <= 100 && $d->nilai_prestasi >= 90)(sangat Baik)@endif @if ($d->nilai_prestasi <= 89 && $d->nilai_prestasi >= 80)(Baik)@endif</td></tr></tfoot></table><div class="card-footer clearfix"><button type="submit" class="btn btn-primary float-right">Simpan</button></div></form></div></div></div>'
+                '<div class="col-12"><div class="card"><div class="card-header"><h3 class="card-title">Edit Detail</h3></div><span class="badge badge-danger"> Harap Masukan Kembali Salah Satu AK</span><div class="card-body"><form action="{{route('detail.edit')}}" method="POST">@csrf<table class="table table-bordered"><thead><tr><th class="align-middle text-center">Kegiatan Tugas Jabatan</th><th class="align-middle text-center" style="width: 90px">AK</th><th class="align-middle text-center">Kuan/Output</th><th class="align-middle text-center">Waktu</th><th class="align-middle text-center">Biaya</th><th class="align-middle text-center">Kual/Mutu</th><th class="align-middle text-center" style="width: 100px">Perhitungan</th><th class="align-middle text-center" style="width: 90px">Nilai Capaian</th><th><button type="button" class="btn btn-primary addRow"><i class="fas fa-plus"></i></button></th></tr></thead><tbody class="nganu">@foreach ($data['detail'] as $d)<tr><td><input type="text" class="form-control form-control-border" name="ktj[]" value="{{$d->ktj}}"></td><td><input type="text" class="form-control form-control-border ak" name="ak[]" value="{{$d->ak}}"></td><td><input type="text" class="form-control form-control-border" name="output[]" value="{{$d->output}}"></td><td><input type="text" class="form-control form-control-border" name="waktu[]" value="{{$d->waktu}}"></td><td><input type="text" class="form-control form-control-border" name="biaya[]" value="{{$d->biaya}}"></td><td><input type="text" class="form-control form-control-border" name="mutu_realisasi[]" value="{{$d->mutu_realisasi}}"></td><td><input type="text" class="form-control form-control-border" name="perhitungan[]" value="{{$d->perhitungan}}"></td><td><input type="text" class="form-control form-control-border" name="nilai_capaian[]" value="{{$d->nilai_capaian}}"></td><td><button type="button" class="btn btn-danger remove"><i class="fas fa-trash"></i></button></td><input type="hidden" name="mutu" value="100"><input type="hidden" name="id[]" value="{{$d->id}}"><input type="hidden" name="skp_id" value="{{$d->skp_id}}"></tr>@endforeach</tbody><tfoot><tr><th class="align-middle text-center">Total AK</th><td><input type="text" class="form-control form-control-border total" name="total_ak"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th colspan="8" rowspan="3" class="align-middle text-center">Nilai Capaian SKP</th></tr><tr>@foreach ($data['skp'] as $d)<td>{{$d->nilai_prestasi}}</td>@endforeach</tr><tr><td>@if ($d->nilai_prestasi <= 100 && $d->nilai_prestasi >= 90)(sangat Baik)@endif @if ($d->nilai_prestasi <= 89 && $d->nilai_prestasi >= 80)(Baik)@endif</td></tr></tfoot></table><div class="card-footer clearfix"><button type="submit" class="btn btn-primary float-right">Simpan</button></div></form></div></div></div>'
             );
         });
     </script>

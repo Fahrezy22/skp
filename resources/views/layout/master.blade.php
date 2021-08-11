@@ -97,8 +97,8 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="#" class="nav-link {{ request()->is('dashboard') ? 'active' : ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                <a href="{{route('dashboard')}}" class="nav-link {{ request()->is('dashboard') ? 'active' : ''}}">
+                  <i class="nav-icon fas fa-home"></i>
                   <p>
                     Dashboard
                   </p>
@@ -106,7 +106,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{route('pegawai')}}" class="nav-link {{ request()->is('pegawai') ? 'active' : ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fas fa-user"></i>
                   <p>
                     Pegawai
                   </p>
@@ -114,7 +114,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{route('penilai')}}" class="nav-link {{ request()->is('penilai') ? 'active' : ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fas fa-user"></i>
                   <p>
                     Penilai
                   </p>
@@ -140,13 +140,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
+            <h1 class="m-0">@yield('header')</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -252,8 +246,8 @@
         "info": true,
         "autoWidth": false,
         "responsive": true,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');;
+        "buttons": ["copy", "csv", "excel"]
+      }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');;
     });
 </script>
 

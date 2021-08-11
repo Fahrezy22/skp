@@ -1,79 +1,18 @@
 @extends('layout.master')
 @section('title')
-Dashboard
+Hasil
 @endsection
-@section('header')
-Dashboard
+@section('header')<a class="btn" href="{{route('dashboard')}}"><i class="fas fa-arrow-left"></i></a>
+hasil Pencarian
 @endsection
 @section('content')
-<div class="row">
-    <div class="col-lg-4 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>{{$data['pegawai']}}</h3>
-
-                <p>Pegawai</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-person-add"></i>
-            </div>
-            <a href="{{route('pegawai')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-4 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success">
-            <div class="inner">
-                <h3>{{$data['penilai']}}</h3>
-
-                <p>Penilai</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-person-add"></i>
-            </div>
-            <a href="{{route('penilai')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-4 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3>{{$data['atasan']}}</h3>
-
-                <p>Atasan Penilai</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-person-add"></i>
-            </div>
-            <a href="{{route('penilai')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-</div>
 
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title col-md-3">Data Keseluruhan SKP</h3>
-                <form action="{{route('search')}}" method="POST">
-                    @csrf
-                    <div class="">
-                        <div class="form-group row">
-                            <label class="control-label col-md-4 col-sm-4 ">Cari Berdasarkan Tanggal :</label>
-                            <div class="col-md-3 col-sm-3 ">
-                                <input required name="start" type="date" class="form-control">
-                            </div>-
-                            <div class="col-md-3 col-sm-3 ">
-                                <input required name="end" type="date" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
-                        </div>
-                    </div>
-                </form>
+                <h3 class="card-title col-md-3">Data SKP Tahun 
+                        {{ \Carbon\Carbon::parse($data['tanggal']->tanggal_awal)->format('Y')}}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

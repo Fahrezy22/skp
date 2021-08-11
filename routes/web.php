@@ -25,6 +25,7 @@ Route::prefix('/')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::post('/search','DashboardController@search')->name('search');
     });
 
     Route::prefix('pegawai')->group(function () {
@@ -51,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('skp/detail/{id}','SkpController@detail')->name('skp.detail');
     Route::post('skp/detail/create','SkpController@detail_store')->name('detail.store');
     Route::post('skp/detail/edit','SkpController@detail_edit')->name('detail.edit');
+    Route::get('/export/{id}','SkpController@export');
+    Route::get('/detail/export/{id}','SkpController@export_detail');
+    
 
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
